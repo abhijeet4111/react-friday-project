@@ -1,4 +1,10 @@
+import HorizontalTabs from "./HorizontalTabs";
+
 const AddCapabilities = () => {
-  return <div>AddCapabilities</div>;
+  return (
+    <div>
+      <HorizontalTabs />
+    </div>
+  );
 };
 export { AddCapabilities };

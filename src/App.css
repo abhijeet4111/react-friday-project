@@ -1,21 +1,22 @@
 .custom-input {
   width: 513px;
-  height: 44px;
+  height: 35px;
   border-radius: 4px;
   border: 1px solid #cbcbcb;
 }
 .custom-textArea {
   width: 513px;
-  height: 110px;
+  height: 90px;
   top: 465px;
   left: 48px;
   padding: 13px 67px 61px 18px;
   border-radius: 4px;
   border: 1px solid #cbcbcb;
+  overflow: hidden;
 }
 .activeStep0Btn {
-  border: 1px solid black;
+  position: absolute;
+  margin-top: 3rem;
 }
 .activeStepOtherBtn {
-  border: 10px solid black;
 }

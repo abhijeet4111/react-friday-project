@@ -57,7 +57,6 @@ const AddRoleName = () => {
             <MenuItem value="admin">Admin</MenuItem>
             <MenuItem value="user">User</MenuItem>
           </Select>
-          <FormHelperText>Without label</FormHelperText>
         </FormControl>
       </form>
     </div>

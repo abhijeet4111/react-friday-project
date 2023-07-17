@@ -37,9 +37,13 @@ export default function ClippedDrawer() {
         <div className="d-flex justify-content-between p-2 mx-4">
           <img src={logo} />
           <div className="d-flex justify-content-between align-items-center flex-wrap gap-3">
-            <div class="form-group has-search">
-              <span class="fa fa-search form-control-feedback"></span>
-              <input type="text" class="form-control" placeholder="Search" />
+            <div className="form-group has-search">
+              <span className="fa fa-search form-control-feedback"></span>
+              <input
+                type="text"
+                className="form-control"
+                placeholder="Search"
+              />
             </div>
             <img src={contacts} />
             <img src={person} />

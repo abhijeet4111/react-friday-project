@@ -1,12 +1,10 @@
-// const VerticalTabs = () => {
-//   return <div></div>;
-// };
-
 import React, { useState } from "react";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
+import { mainObj } from "../MainObj";
+import { CheckListComponent } from "./CheckListComponent";
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -28,13 +26,7 @@ function TabPanel(props) {
   );
 }
 
-function a11yProps(index) {
-  return {
-    id: `vertical-tab-${index}`,
-    "aria-controls": `vertical-tabpanel-${index}`,
-  };
-}
-
+let arrayObj = mainObj.map((data) => data.verticalObj);
 export default function VerticalTabs() {
   const [value, setValue] = useState(0);
 
@@ -53,36 +45,39 @@ export default function VerticalTabs() {
     >
       <Tabs
         orientation="vertical"
-        // variant="scrollable"
         value={value}
         onChange={handleChange}
         aria-label="Vertical tabs example"
         sx={{ borderRight: 1, borderColor: "divider", alignItems: "start" }}
       >
-        <Tab label="Users & Groups" {...a11yProps(0)} />
-        <Tab label="Branding / Customization" {...a11yProps(1)} />
-        <Tab label="MFA / Adaptive" {...a11yProps(2)} />
-        <Tab label="Apps & Policies" {...a11yProps(3)} />
-        <Tab label="Authentication Source" {...a11yProps(4)} />
-        <Tab label="Reports" {...a11yProps(5)} />
+        {mainObj.map((data) => (
+          <Tab key={data.verticalObj.id} label={data.verticalObj.name} />
+        ))}
       </Tabs>
+
       <TabPanel value={value} index={0}>
         Users and Groups
+        <CheckListComponent prop={arrayObj[0].tabTitle} propTab={arrayObj[0]} />
       </TabPanel>
       <TabPanel value={value} index={1}>
         Branding and Customization
+        <CheckListComponent prop={arrayObj[1].tabTitle} propTab={arrayObj[1]} />
       </TabPanel>
       <TabPanel value={value} index={2}>
         MFA / Adaptive
+        <CheckListComponent prop={arrayObj[2].tabTitle} propTab={arrayObj[2]} />
       </TabPanel>
       <TabPanel value={value} index={3}>
         Apps & policies
+        <CheckListComponent prop={arrayObj[3].tabTitle} propTab={arrayObj[3]} />
       </TabPanel>
       <TabPanel value={value} index={4}>
         Authentication Source
+        <CheckListComponent prop={arrayObj[4].tabTitle} propTab={arrayObj[4]} />
       </TabPanel>
       <TabPanel value={value} index={5}>
         Reports
+        <CheckListComponent prop={arrayObj[5].tabTitle} propTab={arrayObj[5]} />
       </TabPanel>
     </Box>
   );

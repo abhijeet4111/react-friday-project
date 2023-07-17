@@ -1,17 +1,7 @@
-import { Grid, TextField, Typography } from "@mui/material";
-import InputLabel from "@mui/material/InputLabel";
-import MenuItem from "@mui/material/MenuItem";
-import FormHelperText from "@mui/material/FormHelperText";
-import FormControl from "@mui/material/FormControl";
-import Select from "@mui/material/Select";
-import { useState } from "react";
+import { Typography } from "@mui/material";
+
+import { AddRoleForm } from "./AddRoleForm";
 const AddRoleName = () => {
-  const [userType, setUserType] = useState("");
-
-  const handleChange = (event) => {
-    setUserType(event.target.value);
-  };
-
   return (
     <div>
       <Typography variant="body7">Add Role Name</Typography>
@@ -25,40 +15,8 @@ const AddRoleName = () => {
         essentially unchanged.
       </Typography>
       <div className="pt-4"></div>
-      <form>
-        <Typography variant="body8">Enter Role Name</Typography>
-        <div className="pt-2"></div>
 
-        <input
-          type="text"
-          className="form-control custom-input"
-          placeholder="Custom Role"
-        />
-        <div className="pt-4"></div>
-        <Typography variant="body8">Description</Typography>
-        <div className="pt-2"></div>
-        <textarea className=" form-control custom-textArea"></textarea>
-        <div className="pt-4"></div>
-        <Typography variant="body8">Inherit Capabilities from</Typography>
-        <div className="pt-2"></div>
-        <FormControl
-          className="custom-input form-control"
-          sx={{ m: 1, minWidth: 120 }}
-        >
-          <Select
-            value={userType}
-            onChange={handleChange}
-            displayEmpty
-            inputProps={{ "aria-label": "Without label" }}
-          >
-            <MenuItem value="">
-              <em>None</em>
-            </MenuItem>
-            <MenuItem value="admin">Admin</MenuItem>
-            <MenuItem value="user">User</MenuItem>
-          </Select>
-        </FormControl>
-      </form>
+      <AddRoleForm />
     </div>
   );
 };

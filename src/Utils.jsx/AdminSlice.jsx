@@ -5,12 +5,24 @@ const AdminSlice = createSlice({
   initialState: {},
   reducers: {
     addAdminPreviewData: (state, action) => {
-      return { ...state, ...action.payload };
+      state.arr = action.payload;
     },
     addAdminAddRole: (state, action) => {
-      return { ...state, ...action.payload };
+      state.formData = action.payload;
+    },
+    adminCheckedListArr: (state, action) => {
+      state.checkedAdminArr = action.payload;
+    },
+    takeArrFromAdmin: (state, action) => {
+      state.defaultArr = action.payload;
     },
   },
 });
-export const { addAdminPreviewData, addAdminAddRole } = AdminSlice.actions;
+export const {
+  adminObjStored,
+  adminCheckedListArr,
+  addAdminPreviewData,
+  addAdminAddRole,
+  takeArrFromAdmin,
+} = AdminSlice.actions;
 export default AdminSlice.reducer;

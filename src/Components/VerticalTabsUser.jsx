@@ -5,14 +5,8 @@ import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import { mainObj } from "../MainObj";
 import { CheckListComponent } from "./CheckListComponent";
-import { useDispatch, useSelector } from "react-redux";
-import {
-  addAdminPreviewData,
-  adminCheckedListArr,
-  adminObjStored,
-} from "../Utils.jsx/AdminSlice";
-
 import { CheckListComponentUser } from "./CheckListComponentUser";
+
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
 
@@ -33,7 +27,7 @@ function TabPanel(props) {
   );
 }
 
-export default function VerticalTabs({ mainObj }) {
+const VerticalTabsUser = () => {
   const [value, setValue] = useState(0);
 
   const handleChange = (event, newValue) => {
@@ -61,18 +55,18 @@ export default function VerticalTabs({ mainObj }) {
         ))}
       </Tabs>
       {mainObj.map((data) => (
-        <TabPanel value={value} index={data.verticalObj.adminTabTitle.index}>
+        <TabPanel value={value} index={data.verticalObj.userTabTitle.index}>
           <Typography variant="body9">
-            {data.verticalObj.adminTabTitle.name}
+            {data.verticalObj.userTabTitle.name}
           </Typography>
           <div className="p-1"></div>
           <Typography variant="body5">
             Capability Description here lorem ipsum
           </Typography>
-
-          <CheckListComponent propTab={data.verticalObj} />
+          <CheckListComponentUser propTab={data.verticalObj} />
         </TabPanel>
       ))}
     </Box>
   );
-}
+};
+export { VerticalTabsUser };

@@ -19,5 +19,16 @@
   margin-top: 3rem;
 }
 .activeStepOtherBtn {
+  position: absolute;
+  right: 0;
+  margin: 3rem;
 }
+.inputCheckBox {
+  width: 18px;
+  height: 18px;
+}
+.previewInputCheckBox {
+  color: #cbcbcb;
+}
+
 /* 000000000000000000000 */

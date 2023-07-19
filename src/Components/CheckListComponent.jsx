@@ -1,17 +1,48 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { Typography } from "@mui/material";
 import { mainObj } from "../MainObj";
-import { useDispatch } from "react-redux";
-import { addAdminPreviewData } from "../Utils.jsx/AdminSlice";
-const CheckListComponent = (prop, propTab) => {
-  let objToChange = prop.propTab;
+import { useDispatch, useSelector } from "react-redux";
+import {
+  addAdminPreviewData,
+  adminCheckedListArr,
+  adminObjStored,
+  takeArrFromAdmin,
+} from "../Utils.jsx/AdminSlice";
 
-  let valuesOfProp = Object.values(prop);
+const CheckListComponent = ({ propTab }) => {
+  const dispatch = useDispatch();
+
+  const roleFormData = useSelector((data) => data.admin.formData);
+  const [parentCheckBoxName, setParentCheckBoxName] =
+    useState("parentCheckBox");
+
   const [childCheckboxList, setChildCheckBoxList] = useState(
-    valuesOfProp[0].manageArr
+    propTab.adminTabTitle.manageArr
   );
-  const [childCheckboxListSecurity, setChildCheckBoxListSecurity] = useState(
-    valuesOfProp[0].securityArr
-  );
+  dispatch(takeArrFromAdmin(childCheckboxList));
+  const dataArr = useSelector((data) => data.admin.defaultArr);
+
+  useEffect(() => {
+    let name;
+    roleFormData.selectVal === "Admin"
+      ? (name = "parentCheckBox")
+      : (name = "");
+    if (name === "parentCheckBox") {
+      let tempUser = childCheckboxList.map((user) => {
+        return { ...user, isChecked: true };
+      });
+      setChildCheckBoxList(tempUser);
+    } else {
+      let tempUser = childCheckboxList.map((user) =>
+        user.name === name ? { ...user, isChecked: false } : user
+      );
+      setChildCheckBoxList(tempUser);
+    }
+  }, []);
+
+  // const [childCheckboxListSecurity, setChildCheckBoxListSecurity] = useState(
+  //   valuesOfProp[0].securityArr
+  // );
 
   const childCheckBoxHandler = (e) => {
     const { name, checked } = e.target;
@@ -28,83 +59,99 @@ const CheckListComponent = (prop, propTab) => {
       setChildCheckBoxList(tempUser);
     }
   };
-  const childCheckBoxSecurityHandler = (e) => {
-    const { name, checked } = e.target;
+  console.log(childCheckboxList);
 
-    if (name === "parentCheckBoxSecurity") {
-      let tempUser = childCheckboxListSecurity.map((user) => {
-        return { ...user, isChecked: checked };
-      });
-      setChildCheckBoxListSecurity(tempUser);
-    } else {
-      let tempUser = childCheckboxListSecurity.map((user) =>
-        user.name === name ? { ...user, isChecked: checked } : user
-      );
-      setChildCheckBoxListSecurity(tempUser);
-    }
-  };
-  const filteredArr = childCheckboxList.reduce((acc, curr) => {
-    if (curr.hasOwnProperty("isChecked")) {
+  // const newFilteredArray = mainObj.map((obj) => {
+  //   return {
+  //     verticalObj: {
+  //       ...obj.verticalObj,
+  //       adminTabTitle: {
+  //         ...obj.verticalObj.adminTabTitle,
+  //         manageArr: obj.verticalObj.adminTabTitle.manageArr.filter(
+  //           (item) => item.isChecked === true
+  //         ),
+  //       },
+  //     },
+  //   };
+  // });
+
+  // console.log(newFilteredArray);
+
+  // const childCheckBoxSecurityHandler = (e) => {
+  //   const { name, checked } = e.target;
+
+  //   if (name === "parentCheckBoxSecurity") {
+  //     let tempUser = childCheckboxListSecurity.map((user) => {
+  //       return { ...user, isChecked: checked };
+  //     });
+  //     setChildCheckBoxListSecurity(tempUser);
+  //   } else {
+  //     let tempUser = childCheckboxListSecurity.map((user) =>
+  //       user.name === name ? { ...user, isChecked: checked } : user
+  //     );
+  //     setChildCheckBoxListSecurity(tempUser);
+  //   }
+  // };
+  const filteredArr = dataArr.reduce((acc, curr) => {
+    if (curr.isChecked === true) {
       acc.push(curr);
     }
     return acc;
   }, []);
-  objToChange.arr = filteredArr;
-  const dispatch = useDispatch();
-  dispatch(addAdminPreviewData(objToChange));
+
+  dispatch(addAdminPreviewData(filteredArr));
 
   return (
-    <div>
-      <div>
-        <label>
-          <input
-            name="parentCheckBox"
-            type="checkbox"
-            onChange={childCheckBoxHandler}
-            checked={!childCheckboxList.some((user) => user.isChecked !== true)}
-          />
-          Manage
-        </label>
+    <div className="py-3">
+      <div className="d-flex align-item-center gap-2">
+        <input
+          className="inputCheckBox"
+          name="parentCheckBox"
+          type="checkbox"
+          onChange={childCheckBoxHandler}
+          checked={!childCheckboxList.some((user) => user.isChecked !== true)}
+        />
+
+        <Typography variant="body5">Manage</Typography>
       </div>
-      {childCheckboxList.map((data) => (
-        <div key={data.id} className="px-4">
-          <label key={data.id}>
-            <input
-              name={data.name}
-              checked={data.isChecked || false}
-              onChange={childCheckBoxHandler}
-              type="checkbox"
-            />
+      {dataArr.map((data) => (
+        <div key={data.id} className="d-flex align-item-center gap-2 px-4 my-3">
+          <input
+            className="inputCheckBox"
+            name={data.name}
+            checked={data.isChecked || false}
+            onChange={childCheckBoxHandler}
+            type="checkbox"
+          />
+          <Typography variant="body5" key={data.id}>
             {data.name}
-          </label>
+          </Typography>
         </div>
       ))}
-      <div>
-        <label>
-          <input
-            name="parentCheckBoxSecurity"
-            type="checkbox"
-            onChange={childCheckBoxSecurityHandler}
-            checked={
-              !childCheckboxListSecurity.some((user) => user.isChecked !== true)
-            }
-          />
-          security
-        </label>
+      {/* <div className="d-flex align-item-center gap-2 ">
+        <input
+          className="inputCheckBox"
+          name="parentCheckBoxSecurity"
+          type="checkbox"
+          onChange={childCheckBoxSecurityHandler}
+          // checked={
+          //   !childCheckboxListSecurity.some((user) => user.isChecked !== true)
+          // }
+        />
+        <Typography variant="body5">security</Typography>
       </div>
       {childCheckboxListSecurity.map((data) => (
-        <div key={data.id} className="px-4">
-          <label>
-            <input
-              name={data.name}
-              type="checkbox"
-              onChange={childCheckBoxSecurityHandler}
-              checked={data.isChecked || false}
-            />
-            {data.name}
-          </label>
+        <div key={data.id} className="d-flex align-item-center gap-2 px-4 my-3">
+          <input
+            className="inputCheckBox"
+            name={data.name}
+            type="checkbox"
+            onChange={childCheckBoxSecurityHandler}
+            checked={data.isChecked || false}
+          />
+          <Typography variant="body5">{data.name}</Typography>
         </div>
-      ))}
+      ))} */}
     </div>
   );
 };

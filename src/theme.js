@@ -3,10 +3,10 @@ import { createTheme } from "@mui/material";
 const theme = createTheme({
   palette: {
     primary: {
-      main: "#2684FF",
+      main: "#EB5424",
     },
     secondary: {
-      main: "#EB5424",
+      main: "#2684FF",
     },
   },
   typography: {
@@ -16,8 +16,6 @@ const theme = createTheme({
       fontSize: "14px",
       fontWeight: "400",
       lineHeight: "18px",
-      letterSpacing: "0em",
-      textAlign: "left",
     },
     body6: {
       fontSize: "24px",
@@ -39,6 +37,13 @@ const theme = createTheme({
       lineHeight: "18px",
       letterSpacing: "0em",
       color: "#5F636D",
+    },
+    body9: {
+      fontSize: "18px",
+      fontWeight: "500",
+      lineHeight: "24px",
+      letterSpacing: "0em",
+      color: "#000000",
     },
   },
   components: {

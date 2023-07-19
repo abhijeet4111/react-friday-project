@@ -16,9 +16,13 @@ const AdminSlice = createSlice({
     takeArrFromAdmin: (state, action) => {
       state.defaultArr = action.payload;
     },
+    storeMainObj: (state, action) => {
+      state.reduxObj = action.payload;
+    },
   },
 });
 export const {
+  storeMainObj,
   adminObjStored,
   adminCheckedListArr,
   addAdminPreviewData,

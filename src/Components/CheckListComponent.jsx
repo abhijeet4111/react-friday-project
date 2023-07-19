@@ -9,12 +9,10 @@ import {
   takeArrFromAdmin,
 } from "../Utils.jsx/AdminSlice";
 
-const CheckListComponent = ({ propTab }) => {
+const CheckListComponent = ({ objRedux, propTab, value }) => {
   const dispatch = useDispatch();
 
   const roleFormData = useSelector((data) => data.admin.formData);
-  const [parentCheckBoxName, setParentCheckBoxName] =
-    useState("parentCheckBox");
 
   const [childCheckboxList, setChildCheckBoxList] = useState(
     propTab.adminTabTitle.manageArr
@@ -32,11 +30,13 @@ const CheckListComponent = ({ propTab }) => {
         return { ...user, isChecked: true };
       });
       setChildCheckBoxList(tempUser);
+      dispatch(takeArrFromAdmin(childCheckboxList));
     } else {
       let tempUser = childCheckboxList.map((user) =>
         user.name === name ? { ...user, isChecked: false } : user
       );
       setChildCheckBoxList(tempUser);
+      dispatch(takeArrFromAdmin(childCheckboxList));
     }
   }, []);
 
@@ -49,17 +49,30 @@ const CheckListComponent = ({ propTab }) => {
 
     if (name === "parentCheckBox") {
       let tempUser = childCheckboxList.map((user) => {
+        console.log("user>>>>", user);
         return { ...user, isChecked: checked };
       });
       setChildCheckBoxList(tempUser);
+      dispatch(takeArrFromAdmin(childCheckboxList));
     } else {
       let tempUser = childCheckboxList.map((user) =>
         user.name === name ? { ...user, isChecked: checked } : user
       );
       setChildCheckBoxList(tempUser);
+      dispatch(takeArrFromAdmin(childCheckboxList));
     }
   };
-  console.log(childCheckboxList);
+  // console.log("1", childCheckboxList);
+  let newVar = objRedux[value].verticalObj.adminTabTitle.manageArr;
+  // console.log("newvar>>>>", newVar);
+  // console.log("newVar>>>>", newVar)
+
+  // console.log("2", childCheckboxList);
+  // objRedux[value].verticalObj.adminTabTitle.manageArr = childCheckboxList;
+  objRedux[value].verticalObj.adminTabTitle.manageArr.map((item) =>
+    console.log(item)
+  );
+  console.log(dataArr);
 
   // const newFilteredArray = mainObj.map((obj) => {
   //   return {

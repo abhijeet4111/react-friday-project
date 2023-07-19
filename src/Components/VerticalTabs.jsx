@@ -39,6 +39,7 @@ export default function VerticalTabs({ mainObj }) {
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
+  const objRedux = useSelector((data) => data.admin.reduxObj);
 
   return (
     <Box
@@ -70,7 +71,11 @@ export default function VerticalTabs({ mainObj }) {
             Capability Description here lorem ipsum
           </Typography>
 
-          <CheckListComponent propTab={data.verticalObj} />
+          <CheckListComponent
+            value={value}
+            objRedux={objRedux}
+            propTab={data.verticalObj}
+          />
         </TabPanel>
       ))}
     </Box>

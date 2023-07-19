@@ -6,6 +6,7 @@ import {
   addAdminPreviewData,
   adminCheckedListArr,
   adminObjStored,
+  storeMainObj,
   takeArrFromAdmin,
 } from "../Utils.jsx/AdminSlice";
 
@@ -39,6 +40,8 @@ const CheckListComponent = ({ objRedux, propTab, value }) => {
       dispatch(takeArrFromAdmin(childCheckboxList));
     }
   }, []);
+  // console.log("objRedux", objRedux);
+  // console.log("childCheckboxList", childCheckboxList);
 
   // const [childCheckboxListSecurity, setChildCheckBoxListSecurity] = useState(
   //   valuesOfProp[0].securityArr
@@ -63,16 +66,15 @@ const CheckListComponent = ({ objRedux, propTab, value }) => {
     }
   };
   // console.log("1", childCheckboxList);
-  let newVar = objRedux[value].verticalObj.adminTabTitle.manageArr;
+  // let newVar = objRedux[value].verticalObj.adminTabTitle.manageArr;
   // console.log("newvar>>>>", newVar);
   // console.log("newVar>>>>", newVar)
 
   // console.log("2", childCheckboxList);
   // objRedux[value].verticalObj.adminTabTitle.manageArr = childCheckboxList;
-  objRedux[value].verticalObj.adminTabTitle.manageArr.map((item) =>
-    console.log(item)
-  );
-  console.log(dataArr);
+  // objRedux[value].verticalObj.adminTabTitle.manageArr.map((item) =>
+
+  // );
 
   // const newFilteredArray = mainObj.map((obj) => {
   //   return {
@@ -113,6 +115,45 @@ const CheckListComponent = ({ objRedux, propTab, value }) => {
   }, []);
 
   dispatch(addAdminPreviewData(filteredArr));
+
+  function updateManageArr(originalArr, updatedArr) {
+    return originalArr.map((item) => {
+      if (updatedArr.some((updatedItem) => updatedItem.id === item.id)) {
+        return {
+          ...item,
+          isChecked: updatedArr.find(
+            (updatedItem) => updatedItem.id === item.id
+          ).isChecked,
+        };
+      }
+      return item;
+    });
+  }
+
+  const targetIndex = value;
+
+  let updatedMainObj = objRedux.map((item, index) => {
+    if (index === targetIndex) {
+      return {
+        ...item,
+        verticalObj: {
+          ...item.verticalObj,
+          adminTabTitle: {
+            ...item.verticalObj.adminTabTitle,
+            manageArr: updateManageArr(
+              item.verticalObj.adminTabTitle.manageArr,
+              childCheckboxList
+            ),
+          },
+        },
+      };
+    }
+    return item;
+  });
+
+  useEffect(() => {
+    dispatch(storeMainObj(updatedMainObj));
+  }, [childCheckboxList]);
 
   return (
     <div className="py-3">

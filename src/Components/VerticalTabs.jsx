@@ -40,7 +40,8 @@ export default function VerticalTabs({ mainObj }) {
     setValue(newValue);
   };
   const objRedux = useSelector((data) => data.admin.reduxObj);
-
+  // console.log("objRedux", objRedux);
+  // console.log("mainObj", mainObj);
   return (
     <Box
       sx={{
@@ -61,7 +62,7 @@ export default function VerticalTabs({ mainObj }) {
           <Tab key={data.verticalObj.id} label={data.verticalObj.name} />
         ))}
       </Tabs>
-      {mainObj.map((data) => (
+      {objRedux.map((data) => (
         <TabPanel value={value} index={data.verticalObj.adminTabTitle.index}>
           <Typography variant="body9">
             {data.verticalObj.adminTabTitle.name}

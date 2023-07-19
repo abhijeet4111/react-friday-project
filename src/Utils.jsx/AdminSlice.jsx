@@ -17,6 +17,7 @@ const AdminSlice = createSlice({
       state.defaultArr = action.payload;
     },
     storeMainObj: (state, action) => {
+      // console.log(action.payload);
       state.reduxObj = action.payload;
     },
   },
